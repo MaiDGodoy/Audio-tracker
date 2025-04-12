@@ -296,110 +296,86 @@ body {
     transform: translateY(-50%);
     color: rgba(255, 239, 175, 0.7);
   }
-/* Estilos corregidos para el control de volumen - Color amarillo #ffefaf */
+/* CONTENEDOR PRINCIPAL */
 .volume-control {
-  position: relative;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-}
-
-#volume-btn {
-  background: transparent;
-  border: none;
-  color: #ffefaf;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  transition: transform 0.2s ease;
-}
-
-#volume-btn:hover {
-  transform: scale(1.1);
-}
-
-.volume-slider-container {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.95);
-  padding: 10px 15px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 215, 0, 0.4);
-  display: none;
-  z-index: 100;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  margin-top: 5px;
-}
-
-.volume-control:hover .volume-slider-container {
-  display: block;
-  animation: fadeIn 0.2s ease-out;
-}
-
-/* --- Estilos corregidos para el slider (eliminando el azul) --- */
-#volume-slider {
-  -webkit-appearance: none; /* Elimina estilos por defecto */
-  appearance: none;
-  width: 8px;
-  height: 100px;
-  background: linear-gradient(to top, 
-              rgba(255, 239, 175, 0.8), 
-              rgba(255, 239, 175, 0.3)); /* Degradado amarillo */
-  outline: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin: 0 auto;
-  display: block;
-}
-
-/* Track (barra principal) */
-#volume-slider::-webkit-slider-runnable-track {
-  background: transparent; /* Elimina el fondo azul */
-}
-
-#volume-slider::-moz-range-track {
-  background: transparent;
-}
-
-/* Thumb (control deslizable) */
-#volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #ffefaf;
-  cursor: pointer;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
-  transition: all 0.2s ease;
-  margin-top: 0; /* Chrome necesita esto */
-  border: none;
-}
-
-#volume-slider::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #ffefaf;
-  cursor: pointer;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
-  border: none;
-}
-
-/* Efectos hover/interacción */
-#volume-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-  background: #ffd700;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(-5px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
+    position: relative;
+    display: inline-block;
+    height: 40px;
+  }
+  
+  /* BOTÓN DE VOLUMEN */
+  #volume-btn {
+    background: transparent;
+    border: none;
+    color: #ffefaf;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+  }
+  
+  #volume-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  /* CONTENEDOR DEL SLIDER (aparece debajo) */
+  .volume-slider-container {
+    position: absolute;
+    top: calc(100% + 5px); /* 5px debajo del botón */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.95);
+    padding: 15px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    display: none;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* MOSTRAR AL HOVER */
+  .volume-control:hover .volume-slider-container {
+    display: block;
+    animation: fadeIn 0.2s ease-out;
+  }
+  
+  /* SLIDER VERTICAL (estilo amarillo) */
+  #volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 6px;
+    height: 80px;
+    background: linear-gradient(to top, #ffefaf, rgba(255, 239, 175, 0.3));
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  /* THUMB (botón deslizable) */
+  #volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffefaf;
+    cursor: pointer;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  #volume-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffefaf;
+    cursor: pointer;
+  }
+  
+  /* ANIMACIÓN */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
