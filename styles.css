@@ -324,29 +324,40 @@ body {
     transform: scale(1.1);
   }
   
-  /* CONTENEDOR DEL SLIDER - AHORA TAMAÑO PRECISO */
+  /* CONTENEDOR DEL SLIDER - VERSIÓN FUNCIONAL */
   .volume-slider-container {
     position: absolute;
     top: calc(100% + 5px);
-    left: 50%;
-    transform: translateX(-50%);
+    left: 48%;
+    transform: translateX(-50%) scaleY(0.8);
+    transform-origin: top center;
     background: rgba(0, 0, 0, 0.95);
-    padding: 10px 8px; /* Reducido para contener solo el slider */
+    padding: 10px 8px;
     border-radius: 8px;
     border: 1px solid rgba(255, 215, 0, 0.4);
-    display: none;
+    opacity: 0;
+    pointer-events: none;
     z-index: 100;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    width: 24px; /* Ancho ajustado */
-    height: 110px; /* Alto suficiente para el slider */
-    opacity: 0; /* Inicialmente transparente */
-  pointer-events: none; /* Ignora eventos de ratón cuando está oculto */
-  transition: opacity 0.2s ease-out; /* Transición suave */
+    width: 24px;
+    height: 110px;
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    display: flex;
+    justify-content: center; /* Centra el slider horizontalmente */
+    align-items: center;
+    flex-direction: column;
   }
   
-  /* SLIDER VERTICAL - POSICIÓN CORREGIDA */
+  /* SLIDER VISIBLE AL HOVER */
+  .volume-control:hover .volume-slider-container {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  /* SLIDER VERTICAL FUNCIONAL */
   #volume-slider {
     -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
     width: 6px;
     height: 100px;
@@ -356,24 +367,19 @@ body {
     border-radius: 3px;
     cursor: pointer;
     margin: 0 auto;
-    display: block;
-    position: relative;
-    left: 0; /* Reset de posición */
-    transform: none; /* Elimina rotación */
+    outline: none;
   }
   
-  /* THUMB CENTRADO */
+  /* THUMB DESLIZABLE */
   #volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    appearance: none;
     width: 14px;
     height: 14px;
     border-radius: 50%;
     background: #ffefaf;
     border: 1px solid #ffd700;
     cursor: grab;
-    margin-top: -5px; /* Centrado vertical */
-    transition: all 0.2s;
+    margin-top: -5px;
   }
   
   #volume-slider::-moz-range-thumb {
@@ -384,17 +390,9 @@ body {
     border: 1px solid #ffd700;
     cursor: grab;
   }
-
-  /* MOSTRAR AL HOVER - VERSIÓN CORREGIDA */
-.volume-control:hover .volume-slider-container {
-    display: block; /* Aseguramos que el contenedor se muestre */
-    opacity: 1; /* Hacemos visible */
-    pointer-events: auto; /* Permitimos interacción */
-    animation: fadeIn 0.2s ease-out;
-}
   
   /* ANIMACIÓN */
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateX(-50%) translateY(5px); }
-    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
