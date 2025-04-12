@@ -3,13 +3,13 @@ const playlist = [
       title: "Disc 1:Inazuma", 
       artist: "Genshin Impact", 
       duration: "50:01", 
-      src: "audios/Realm of Tranquil Eternity - Disc 1_ Sakura and Violet ThunderGenshin Impact.mp3" 
+      src: "https://www.youtube.com/watch?v=1xMRU4D9ODc&ab_channel=GenshinImpact" 
     },
     { 
-      title: "Liyue Harbor", 
-      artist: "HOYO-MiX", 
-      duration: "4:12", 
-      src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" 
+      title: "Isabella's Lullaby", 
+      artist: "Ash", 
+      duration: "7:18", 
+      src: "https://www.youtube.com/watch?v=GCSqIJGQ4Ss&ab_channel=Ash%5BOctoMeggo%5D" 
     }
   ];
   
