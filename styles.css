@@ -12,7 +12,7 @@ body {
 
 .music-player {
   width: 320px;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 12px;
   padding: 20px;
   color: #ffefaf;
@@ -50,7 +50,7 @@ body {
   background: url('https://i.imgur.com/siEUWN4.gif') no-repeat center center;
   background-size: cover;
   z-index: -1;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 .progress-container {
