@@ -296,37 +296,46 @@ body {
     transform: translateY(-50%);
     color: rgba(255, 239, 175, 0.7);
   }
- /* Estilos para el control de volumen */
+/* Estilos finales para el control de volumen */
 .volume-control {
     position: relative;
-    display: flex;
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
+    height: 40px;
   }
   
   #volume-btn {
-    font-size: 20px;
-    color: #ffefaf;
     background: transparent;
     border: none;
+    color: #ffefaf;
+    font-size: 20px;
     cursor: pointer;
     padding: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
+    transition: transform 0.2s ease;
+  }
+  
+  #volume-btn:hover {
+    transform: scale(1.1);
   }
   
   .volume-slider-container {
     position: absolute;
-    bottom: 100%;
+    top: 100%; /* Cambiado de bottom a top para que aparezca debajo */
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.9);
-    padding: 15px 10px;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 10px 15px; /* Ajustado para mejor proporción */
     border-radius: 8px;
-    border: 1px solid rgba(255, 215, 0, 0.3);
+    border: 1px solid rgba(255, 215, 0, 0.4);
     display: none;
     z-index: 100;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin-top: 5px; /* Espacio entre botón y slider */
   }
   
   .volume-control:hover .volume-slider-container {
@@ -335,19 +344,15 @@ body {
   }
   
   #volume-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100px;
-    height: 6px;
-    background: rgba(255, 215, 0, 0.3);
-    border-radius: 3px;
+    -webkit-appearance: slider-vertical;
+    width: 8px;
+    height: 100px;
+    background: rgba(255, 239, 175, 0.3); /* Color amarillo claro (#ffefaf) con transparencia */
     outline: none;
-    transform: rotate(-90deg);
-    transform-origin: center;
-    position: relative;
-    left: -42px;
-    top: 42px;
-    margin: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
   }
   
   #volume-slider::-webkit-slider-thumb {
@@ -356,21 +361,27 @@ body {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: #ffefaf;
+    background: #ffefaf; /* Color amarillo exacto */
     cursor: pointer;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s ease;
   }
   
   #volume-slider::-moz-range-thumb {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: #ffefaf;
+    background: #ffefaf; /* Color amarillo exacto */
     cursor: pointer;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   }
   
+  #volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    background: #ffd700; /* Amarillo más brillante al hover */
+  }
+  
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    from { opacity: 0; transform: translateX(-50%) translateY(-5px); }
     to { opacity: 1; transform: translateX(-50%) translateY(0); }
   }
