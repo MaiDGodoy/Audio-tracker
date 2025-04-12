@@ -343,37 +343,53 @@ body {
   }
   
   /* SLIDER VERTICAL (estilo amarillo) */
-  #volume-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 6px;
-    height: 80px;
-    background: linear-gradient(to top, #ffefaf, rgba(255, 239, 175, 0.3));
-    border-radius: 3px;
+  /* Asegura que el slider sea vertical */
+#volume-slider {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
     outline: none;
-    cursor: pointer;
+    border: none;
+  }
+
+  /* === BARRA PRINCIPAL (fondo) === */
+#volume-slider {
+    background: linear-gradient(to top, 
+                rgba(255, 239, 175, 0.8),  /* Amarillo con opacidad */
+                rgba(255, 239, 175, 0.3)) !important;
+    height: 100px;
+    width: 6px;
+    border-radius: 3px;
   }
   
-  /* THUMB (botón deslizable) */
+  /* Estilo del botón deslizable */
   #volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #ffefaf;
-    cursor: pointer;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+    -webkit-appearance: none !important;
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 50% !important;
+  background: #ffefaf !important; /* Tu amarillo */
+  border: 1px solid #ffd700 !important;
+  cursor: grab !important;
+  margin-top: 0 !important; /* Chrome lo necesita */
+  box-shadow: 0 0 4px rgba(0,0,0,0.3) !important;
   }
   
   #volume-slider::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #ffefaf;
-    cursor: pointer;
+    width: 14px !important;
+    height: 14px !important;
+    border-radius: 50% !important;
+    background: #ffefaf !important;
+    border: 1px solid #ffd700 !important;
+    cursor: grab !important;
+    box-shadow: 0 0 4px rgba(0,0,0,0.3) !important;
   }
   
+ /* === PISTA DE LA BARRA (Firefox) === */
+#volume-slider::-moz-range-track {
+    background: transparent !important;
+    border: none !important;
+  }
   /* ANIMACIÓN */
   @keyframes fadeIn {
     from { opacity: 0; transform: translateX(-50%) translateY(10px); }
