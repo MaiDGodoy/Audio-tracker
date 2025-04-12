@@ -86,7 +86,7 @@ body {
 .controls {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 12px;
   margin: 15px 0;
 }
 
@@ -104,8 +104,37 @@ body {
   justify-content: center;
   padding: 8px; /* Espacio para mejor tacto */
   margin: 0 !important;
-  border-radius: 0 !important;
+  border-radius: 8px !important;
   box-shadow: none !important;
+}
+/* Ícono personalizado para anterior (dos triángulos juntos) */
+#prev-btn::before {
+  content: "◀◀";
+  font-size: 20px;
+  letter-spacing: -3px; /* Junta los dos triángulos */
+}
+
+/* Ícono personalizado para siguiente (dos triángulos juntos) */
+#next-btn::before {
+  content: "▶▶";
+  font-size: 20px;
+  letter-spacing: -3px; /* Junta los dos triángulos */
+}
+
+/* Ícono de play/pausa */
+#play-btn::before {
+  content: "▶";
+  font-size: 20px;
+}
+
+/* Ícono de repetición */
+#repeat-btn i {
+  font-size: 16px; /* Tamaño ligeramente menor para el ícono de FontAwesome */
+}
+
+/* Ícono de aleatorio */
+#shuffle-btn i {
+  font-size: 16px; /* Tamaño ligeramente menor para el ícono de FontAwesome */
 }
 
 .controls button:hover {
