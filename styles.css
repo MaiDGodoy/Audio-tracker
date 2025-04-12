@@ -296,7 +296,6 @@ body {
     transform: translateY(-50%);
     color: rgba(255, 239, 175, 0.7);
   }
-/* CONTENEDOR PRINCIPAL */
 .volume-control {
     position: relative;
     display: inline-flex;
@@ -305,7 +304,6 @@ body {
     height: 40px;
   }
   
-  /* BOTÓN DE VOLUMEN */
   #volume-btn {
     background: transparent;
     border: none;
@@ -316,21 +314,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease;
     z-index: 1;
   }
   
-  #volume-btn:hover {
-    transform: scale(1.1);
-  }
-  
-  /* CONTENEDOR DEL SLIDER - VERSIÓN FUNCIONAL */
   .volume-slider-container {
     position: absolute;
     top: calc(100% + 5px);
-    left: 48%;
-    transform: translateX(-50%) scaleY(0.8);
-    transform-origin: top center;
+    left: 50%;
+    transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.95);
     padding: 10px 8px;
     border-radius: 8px;
@@ -339,38 +330,33 @@ body {
     pointer-events: none;
     z-index: 100;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    width: 24px;
-    height: 110px;
-    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    width: 32px;
+    height: 120px;
     display: flex;
-    justify-content: center; /* Centra el slider horizontalmente */
+    justify-content: center;
     align-items: center;
-    flex-direction: column;
+    transition: opacity 0.2s ease-out;
   }
   
-  /* SLIDER VISIBLE AL HOVER */
   .volume-control:hover .volume-slider-container {
     opacity: 1;
     pointer-events: auto;
   }
   
-  /* SLIDER VERTICAL FUNCIONAL */
+  /* Slider vertical funcional */
   #volume-slider {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 6px;
-    height: 100px;
-    background: linear-gradient(to top, 
-                rgba(255, 239, 175, 0.8), 
-                rgba(255, 239, 175, 0.3));
+    writing-mode: bt-lr; /* vertical: bottom to top */
+    appearance: slider-vertical;
+    width: 100px;
+    height: 6px;
+    transform: rotate(-90deg);
+    background: linear-gradient(to right, rgba(255, 239, 175, 0.8), rgba(255, 239, 175, 0.3));
     border-radius: 3px;
     cursor: pointer;
-    margin: 0 auto;
     outline: none;
   }
   
-  /* THUMB DESLIZABLE */
+  /* Thumb personalizado */
   #volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 14px;
@@ -379,7 +365,6 @@ body {
     background: #ffefaf;
     border: 1px solid #ffd700;
     cursor: grab;
-    margin-top: -5px;
   }
   
   #volume-slider::-moz-range-thumb {
@@ -391,8 +376,3 @@ body {
     cursor: grab;
   }
   
-  /* ANIMACIÓN */
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
