@@ -3,13 +3,13 @@ const playlist = [
       title: "Disc 1:Inazuma", 
       artist: "Genshin Impact", 
       duration: "50:01", 
-      src:"https://www.dropbox.com/scl/fi/jg9nx593hejrn19ocp04e/Realm-of-Tranquil-Eternity-Disc-1_-Sakura-and-Violet-ThunderGenshin-Impact.mp3?rlkey=eeac442as89tf6mvmlmuw8ulm&raw=1"
+      src:"https://dl.dropboxusercontent.com/scl/fi/jg9nx593hejrn19ocp04e/Realm-of-Tranquil-Eternity-Disc-1_-Sakura-and-Violet-ThunderGenshin-Impact.mp3?rlkey=eeac442as89tf6mvmlmuw8ulm&raw=1"
     },
     { 
       title: "Isabella's Lullaby", 
       artist: "Ash", 
       duration: "7:18", 
-      src: "https://www.dropbox.com/scl/fi/n0ymferge9xacyx7bwrkx/Isabella-s-Lullaby-vocal-and-mandolin-ver.-extended.mp3?rlkey=bxk52om38bzhhewmkiq7kja1x&st=izlkdnp9&dl=1" 
+      src: "https://dl.dropboxusercontent.com/scl/fi/n0ymferge9xacyx7bwrkx/Isabella-s-Lullaby-vocal-and-mandolin-ver.-extended.mp3?rlkey=bxk52om38bzhhewmkiq7kja1x&raw=1" 
     }
   ];
   
@@ -98,50 +98,51 @@ function initPlayer() {
       src: [playlist[index].src],
       html5: true,
       format: ['mp3'],
-      preload: 'metadata',
+      preload: 'auto',
         xhr: {
       method: 'GET',
-      headers: {},
+      headers: {'Origin': window.location.origin},
       withCredentials: false
     },
-    // ↓ Nuevas optimizaciones ↓
-    pool: 2, // Reduce el uso de memoria
-    autoplay: true,
-    onplayerror: function() {
-      sound.once('unlock', function() {
-        sound.play();
-      });
-    }
-      onload: function() {
-        document.getElementById('duration').textContent = formatTime(sound.duration());
-            // Actualizar título al cargar
-            updatePlayerTitle();
-        },
-      onplay: () => {
-        isPlaying = true;
-            document.getElementById('play-btn').textContent = '⏸';
-            updatePlaylistUI();
-            updateProgressBar();
-        
-      },
-      onpause: () => {
-        isPlaying = false;
-        document.getElementById('play-btn').textContent = '▶';
-        updatePlaylistUI();
-      },
-     onend: () => {
+    onload: function() {
+      document.getElementById('duration').textContent = formatTime(sound.duration());
+      updatePlayerTitle();
+    },
+    onplay: () => {
+      isPlaying = true;
+      document.getElementById('play-btn').textContent = '⏸';
+      updatePlaylistUI();
+      updateProgressBar();
+    },
+    onpause: () => {
+      isPlaying = false;
+      document.getElementById('play-btn').textContent = '▶';
+      updatePlaylistUI();
+    },
+    onend: () => {
       if (isRepeat) playTrack(currentTrack);
       else nextTrack();
     },
     onplayerror: function() {
-      // Intenta desbloquear el audio
+      console.error("Error al reproducir, intentando desbloquear...");
       sound.once('unlock', function() {
         sound.play();
       });
     }
   });
   
-  sound.play();
+  // Intenta reproducir inmediatamente
+  const playAttempt = sound.play();
+  
+  // Si falla por políticas de autoplay
+  if (typeof playAttempt !== 'number') {
+    playAttempt.then(() => {
+      console.log("Reproducción desbloqueada!");
+    }).catch(err => {
+      console.error("Error de autoplay:", err);
+      // Muestra un botón de "Click para reproducir"
+    });
+  }
 }
 
 
