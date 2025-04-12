@@ -107,35 +107,34 @@ body {
   border-radius: 8px !important;
   box-shadow: none !important;
 }
-/* Ícono personalizado para anterior (dos triángulos juntos) */
-#prev-btn::before {
-  content: "◀◀";
-  font-size: 20px;
-  letter-spacing: -3px; /* Junta los dos triángulos */
-}
-
-/* Ícono personalizado para siguiente (dos triángulos juntos) */
-#next-btn::before {
-  content: "▶▶";
-  font-size: 20px;
-  letter-spacing: -3px; /* Junta los dos triángulos */
-}
-
-/* Ícono de play/pausa */
-#play-btn::before {
-  content: "▶";
-  font-size: 20px;
-}
-
-/* Ícono de repetición */
-#repeat-btn i {
-  font-size: 16px; /* Tamaño ligeramente menor para el ícono de FontAwesome */
-}
-
-/* Ícono de aleatorio */
-#shuffle-btn i {
-  font-size: 16px; /* Tamaño ligeramente menor para el ícono de FontAwesome */
-}
+ /* Estilo especial para el botón de play */
+  #play-btn {
+    background: rgba(255, 239, 175, 0.2) !important;
+    font-size: 24px;
+  }
+  
+  .controls button:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 8px rgba(255, 239, 175, 0.6);
+  }
+  
+  .controls button.active {
+    color: #ffffff;
+  }
+  
+  .controls button.playing {
+    animation: none !important;
+  }
+  
+  /* Ícono de repetición */
+  #repeat-btn i {
+    font-size: 16px; /* Tamaño ligeramente menor para el ícono de FontAwesome */
+  }
+  
+  /* Ícono de aleatorio */
+  #shuffle-btn i {
+    font-size: 16px; /* Tamaño ligeramente menor para el ícono de FontAwesome */
+  }
 
 .controls button:hover {
   background: transparent !important;
