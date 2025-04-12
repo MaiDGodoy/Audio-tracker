@@ -265,55 +265,57 @@ function initPlayer() {
     });
   });
 
- // Control de volumen
+// Control de volumen - Versión mejorada
 const volumeBtn = document.getElementById('volume-btn');
 const volumeSlider = document.getElementById('volume-slider');
 const volumeIcon = volumeBtn.querySelector('i');
 
-// Inicializar volumen
-if (sound) {
-  sound.volume(volumeSlider.value);
-}
+// Inicialización mejorada
+document.addEventListener('DOMContentLoaded', () => {
+  // Establecer volumen inicial y guardar preferencia
+  const savedVolume = localStorage.getItem('volume') || 1;
+  volumeSlider.value = savedVolume;
+  
+  if (sound) {
+    sound.volume(savedVolume);
+    updateVolumeIcon(savedVolume);
+  }
+});
 
-// Actualizar icono del volumen
+// Actualizar icono (versión optimizada)
 function updateVolumeIcon(volume) {
-  if (volume == 0) {
-    volumeIcon.className = 'fas fa-volume-mute';
-  } else if (volume < 0.5) {
-    volumeIcon.className = 'fas fa-volume-down';
-  } else {
-    volumeIcon.className = 'fas fa-volume-up';
-  }
+  volume = parseFloat(volume);
+  volumeIcon.className = volume === 0 ? 'fas fa-volume-mute' :
+                        volume < 0.5 ? 'fas fa-volume-down' : 'fas fa-volume-up';
 }
 
-// Evento del slider
-volumeSlider.addEventListener('input', function() {
-  const volume = parseFloat(this.value);
-  if (sound) {
-    sound.volume(volume);
-  }
+// Eventos mejorados
+volumeSlider.addEventListener('input', () => {
+  const volume = volumeSlider.value;
+  if (sound) sound.volume(volume);
   updateVolumeIcon(volume);
+  localStorage.setItem('volume', volume); // Guardar preferencia
 });
 
-// Click para mutear/desmutear
-volumeBtn.addEventListener('click', function(e) {
+volumeBtn.addEventListener('click', (e) => {
   e.stopPropagation();
-  if (sound) {
-    if (sound.volume() > 0) {
-      volumeSlider.dataset.lastVolume = sound.volume();
-      sound.volume(0);
-      volumeSlider.value = 0;
-    } else {
-      const lastVolume = parseFloat(volumeSlider.dataset.lastVolume) || 1;
-      sound.volume(lastVolume);
-      volumeSlider.value = lastVolume;
-    }
-    updateVolumeIcon(sound.volume());
+  if (!sound) return;
+
+  const currentVolume = sound.volume();
+  if (currentVolume > 0) {
+    volumeSlider.dataset.lastVolume = currentVolume;
+    sound.volume(0);
+    volumeSlider.value = 0;
+  } else {
+    const lastVolume = volumeSlider.dataset.lastVolume || 0.7;
+    sound.volume(lastVolume);
+    volumeSlider.value = lastVolume;
   }
+  updateVolumeIcon(sound.volume());
 });
 
-// Actualizar icono inicial
-updateVolumeIcon(1);
+// Iniciar con icono correcto
+updateVolumeIcon(volumeSlider.value || 1);
   
   // Iniciar
   document.addEventListener('DOMContentLoaded', initPlayer);
