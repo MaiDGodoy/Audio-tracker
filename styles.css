@@ -296,59 +296,81 @@ body {
     transform: translateY(-50%);
     color: rgba(255, 239, 175, 0.7);
   }
-  /* Estilos para el control de volumen */
-#volume-btn {
+ /* Estilos para el control de volumen */
+.volume-control {
     position: relative;
+    display: flex;
+    align-items: center;
   }
   
-  .volume-container {
+  #volume-btn {
+    font-size: 20px;
+    color: #ffefaf;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .volume-slider-container {
     position: absolute;
-    bottom: 70px;
-    display: none;
-    padding: 10px;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.9);
+    padding: 15px 10px;
     border-radius: 8px;
     border: 1px solid rgba(255, 215, 0, 0.3);
-    z-index: 10;
+    display: none;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
   
-  .volume-slider {
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    padding: 10px 0;
+  .volume-control:hover .volume-slider-container {
+    display: block;
+    animation: fadeIn 0.2s ease-out;
   }
   
   #volume-slider {
-    writing-mode: bt-lr; /* Estándar para orientación vertical */
-    appearance: slider-vertical;
-    width: 8px;
-    height: 100px;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 6px;
     background: rgba(255, 215, 0, 0.3);
+    border-radius: 3px;
     outline: none;
-    border-radius: 4px;
+    transform: rotate(-90deg);
+    transform-origin: center;
+    position: relative;
+    left: -42px;
+    top: 42px;
+    margin: 0;
   }
   
   #volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background: #ffefaf;
     cursor: pointer;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   }
   
   #volume-slider::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     background: #ffefaf;
     cursor: pointer;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
   }
   
-  /* Mostrar el control de volumen al hacer hover */
-  #volume-btn:hover .volume-container,
-  .volume-container:hover {
-    display: block;
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
   }
