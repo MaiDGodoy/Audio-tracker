@@ -3,7 +3,8 @@ const playlist = [
       title: "Disc 1:Inazuma", 
       artist: "Genshin Impact", 
       duration: "50:01", 
-      src: "https://docs.google.com/uc?export=download&id=1ptQDN-Aga_uMeIbEZyObu8r_r0GPOIkt" 
+      src: "src: "https://www.dropbox.com/scl/fi/jg9nx593hejrn19ocp04e/Realm-of-Tranquil-Eternity-Disc-1_-Sakura-and-Violet-ThunderGenshin-Impact.mp3?rlkey=eeac442as89tf6mvmlmuw8ulm&raw=1"
+" 
     },
     { 
       title: "Liyue Harbor", 
