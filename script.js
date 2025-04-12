@@ -31,6 +31,15 @@ function initPlayer() {
       document.getElementById('current-time').textContent = '0:00';
       document.getElementById('duration').textContent = '0:00';
 
+     const preloadSound = new Howl({
+     src: [playlist[0].src],
+     html5: true,
+     preload: true,
+     volume: 0, // Silencioso durante precarga
+     onload: function() {
+      console.log("Track precargado!");
+     }
+
       playlist.forEach((track, index) => {
         const item = document.createElement('div');
         item.className = 'playlist-item';
@@ -89,6 +98,19 @@ function initPlayer() {
       html5: true,
       format: ['mp3'],
       preload: 'metadata',
+        xhr: {
+      method: 'GET',
+      headers: {},
+      withCredentials: false
+    },
+    // ↓ Nuevas optimizaciones ↓
+    pool: 2, // Reduce el uso de memoria
+    autoplay: true,
+    onplayerror: function() {
+      sound.once('unlock', function() {
+        sound.play();
+      });
+    }
       onload: function() {
         document.getElementById('duration').textContent = formatTime(sound.duration());
             // Actualizar título al cargar
