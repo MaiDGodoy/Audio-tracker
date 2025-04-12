@@ -32,13 +32,14 @@ function initPlayer() {
       document.getElementById('duration').textContent = '0:00';
 
      const preloadSound = new Howl({
-     src: [playlist[0].src],
-     html5: true,
-     preload: true,
-     volume: 0, // Silencioso durante precarga
-     onload: function() {
-      console.log("Track precargado!");
+      src: [playlist[0].src],
+      html5: true,
+      preload: true,
+      volume: 0, // Silencioso durante precarga
+      onload: function() {
+       console.log("Track precargado!");
      }
+     }); // ← Este paréntesis faltaba
 
       playlist.forEach((track, index) => {
         const item = document.createElement('div');
@@ -143,18 +144,7 @@ function initPlayer() {
   sound.play();
 }
 
-// sw.js
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open('audio-cache').then((cache) => {
-      return cache.addAll([
-        // Lista de URLs de audio
-        'https://www.dropbox.com/scl/fi/jg9nx593hejrn19ocp04e/Realm-of-Tranquil-Eternity-Disc-1_-Sakura-and-Violet-ThunderGenshin-Impact.mp3?rlkey=eeac442as89tf6mvmlmuw8ulm&raw=1',
-        'https://www.dropbox.com/scl/fi/n0ymferge9xacyx7bwrkx/Isabella-s-Lullaby-vocal-and-mandolin-ver.-extended.mp3?rlkey=bxk52om38bzhhewmkiq7kja1x&st=izlkdnp9&dl=1'
-      ]);
-    })
-  );
-});
+
   
   function updatePlayerTitle() {
     const currentTrackData = playlist[currentTrack];
