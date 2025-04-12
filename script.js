@@ -245,3 +245,4 @@ function initPlayer() {
   
   // Iniciar
   document.addEventListener('DOMContentLoaded', initPlayer);
+  window.onload = initPlayer;
