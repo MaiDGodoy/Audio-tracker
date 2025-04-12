@@ -3,7 +3,7 @@ const playlist = [
       title: "Disc 1:Inazuma", 
       artist: "Genshin Impact", 
       duration: "50:01", 
-      src: "https://drive.google.com/uc?export=download&id=1ptQDN-Aga_uMeIbEZyObu8r_r0GPOIkt" 
+      src: "https://gdrive-player.com/1E02918BF2EED23?sv=3" 
     },
     { 
       title: "Liyue Harbor", 
