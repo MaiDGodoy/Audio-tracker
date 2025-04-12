@@ -1,26 +1,33 @@
+// Lista de reproducción con IDs de YouTube
 const playlist = [
   { 
     title: "Disc 1:Inazuma", 
     artist: "Genshin Impact", 
     duration: "50:01", 
-    id: "1xMRU4D9ODc" // Solo el ID del video de YouTube
+    id: "1xMRU4D9ODc",
+    startSeconds: 0,
+    endSeconds: 3001
   },
   { 
     title: "Isabella's Lullaby", 
     artist: "Ash", 
     duration: "7:18", 
-    id: "GCSqIJGQ4Ss" // Solo el ID del video de YouTube
+    id: "GCSqIJGQ4Ss",
+    startSeconds: 0,
+    endSeconds: 438
   }
 ];
 
+// Variables globales
 let currentTrack = 0;
 let isPlaying = false;
 let isRepeat = false;
 let isShuffle = false;
 let player;
 let progressInterval;
+let isPlayerReady = false;
 
-// Inicializar el reproductor de YouTube
+// Función crítica que YouTube requiere
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('youtube-player', {
     height: '0',
@@ -30,7 +37,9 @@ function onYouTubeIframeAPIReady() {
       controls: 0,
       disablekb: 1,
       fs: 0,
-      rel: 0
+      rel: 0,
+      enablejsapi: 1,
+      origin: window.location.origin
     },
     events: {
       'onReady': onPlayerReady,
@@ -39,33 +48,51 @@ function onYouTubeIframeAPIReady() {
   });
 }
 
-function onPlayerReady() {
+function onPlayerReady(event) {
+  isPlayerReady = true;
   initPlayer();
+  console.log("Reproductor de YouTube listo");
 }
 
 function onPlayerStateChange(event) {
-  if (event.data === YT.PlayerState.PLAYING) {
-    isPlaying = true;
-    document.getElementById('play-btn').textContent = '⏸';
-    startProgressTimer();
-    updatePlaylistUI();
-  } else if (event.data === YT.PlayerState.PAUSED) {
-    isPlaying = false;
-    document.getElementById('play-btn').textContent = '▶';
-    clearInterval(progressInterval);
-    updatePlaylistUI();
-  } else if (event.data === YT.PlayerState.ENDED) {
-    if (isRepeat) {
-      playTrack(currentTrack);
-    } else {
-      nextTrack();
-    }
+  switch(event.data) {
+    case YT.PlayerState.PLAYING:
+      isPlaying = true;
+      document.getElementById('play-btn').textContent = '⏸';
+      startProgressTimer();
+      updatePlaylistUI();
+      break;
+    case YT.PlayerState.PAUSED:
+      isPlaying = false;
+      document.getElementById('play-btn').textContent = '▶';
+      clearInterval(progressInterval);
+      updatePlaylistUI();
+      break;
+    case YT.PlayerState.ENDED:
+      handleTrackEnd();
+      break;
+    case YT.PlayerState.BUFFERING:
+    case YT.PlayerState.CUED:
+      // Estados intermedios
+      break;
+  }
+}
+
+function handleTrackEnd() {
+  if (isRepeat) {
+    playTrack(currentTrack);
+  } else {
+    nextTrack();
   }
 }
 
 function initPlayer() {
+  if (!isPlayerReady) {
+    console.error("El reproductor de YouTube no está listo");
+    return;
+  }
+
   const playlistElement = document.getElementById('playlist');
-  updatePlayerTitle();
   
   playlist.forEach((track, index) => {
     const item = document.createElement('div');
@@ -81,10 +108,7 @@ function initPlayer() {
     
     const contentDiv = document.createElement('div');
     contentDiv.className = 'track-content';
-    contentDiv.innerHTML = `
-      ${track.title}<br>
-      <small>${track.artist}</small>
-    `;
+    contentDiv.innerHTML = `${track.title}<br><small>${track.artist}</small>`;
     
     const durationDiv = document.createElement('div');
     durationDiv.className = 'track-duration';
@@ -115,11 +139,27 @@ function initPlayer() {
   document.getElementById('repeat-btn').addEventListener('click', toggleRepeat);
   document.getElementById('shuffle-btn').addEventListener('click', toggleShuffle);
   document.getElementById('progress-container').addEventListener('click', seek);
+
+  // Actualizar UI inicial
+  updatePlayerTitle();
+  updateTimeDisplay(0, playlist[currentTrack].endSeconds || 300);
 }
 
 function playTrack(index) {
+  if (!isPlayerReady) {
+    console.error("El reproductor no está listo");
+    return;
+  }
+
   currentTrack = index;
-  player.loadVideoById(playlist[index].id);
+  const track = playlist[index];
+  
+  player.loadVideoById({
+    videoId: track.id,
+    startSeconds: track.startSeconds || 0,
+    endSeconds: track.endSeconds || undefined
+  });
+  
   updatePlayerTitle();
   updatePlaylistUI();
 }
@@ -136,13 +176,8 @@ function updatePlaylistUI() {
     item.classList.toggle('active', isActive);
     
     if (isActive) {
-      if (isPlaying) {
-        item.classList.add('playing');
-        item.classList.remove('paused');
-      } else {
-        item.classList.add('paused');
-        item.classList.remove('playing');
-      }
+      item.classList.toggle('playing', isPlaying);
+      item.classList.toggle('paused', !isPlaying);
     } else {
       item.classList.remove('playing', 'paused');
     }
@@ -157,18 +192,27 @@ function updatePlaylistUI() {
 function startProgressTimer() {
   clearInterval(progressInterval);
   progressInterval = setInterval(updateProgressBar, 1000);
+  updateProgressBar(); // Actualizar inmediatamente
 }
 
 function updateProgressBar() {
-  if (player && player.getCurrentTime) {
+  if (!isPlayerReady) return;
+  
+  try {
     const currentTime = player.getCurrentTime();
     const duration = player.getDuration();
     const progress = (currentTime / duration) * 100;
     
     document.getElementById('progress-bar').style.width = `${progress}%`;
-    document.getElementById('current-time').textContent = formatTime(currentTime);
-    document.getElementById('duration').textContent = formatTime(duration);
+    updateTimeDisplay(currentTime, duration);
+  } catch (e) {
+    console.error("Error al actualizar la barra de progreso:", e);
   }
+}
+
+function updateTimeDisplay(currentTime, duration) {
+  document.getElementById('current-time').textContent = formatTime(currentTime);
+  document.getElementById('duration').textContent = formatTime(duration);
 }
 
 function formatTime(seconds) {
@@ -178,17 +222,24 @@ function formatTime(seconds) {
 }
 
 function seek(e) {
-  if (!player || !player.getDuration) return;
+  if (!isPlayerReady) return;
   
-  const rect = e.currentTarget.getBoundingClientRect();
-  const percent = (e.clientX - rect.left) / rect.width;
-  const newTime = player.getDuration() * percent;
-  
-  player.seekTo(newTime);
-  updateProgressBar();
+  try {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const percent = (e.clientX - rect.left) / rect.width;
+    const duration = player.getDuration();
+    const newTime = duration * percent;
+    
+    player.seekTo(newTime, true);
+    updateTimeDisplay(newTime, duration);
+  } catch (e) {
+    console.error("Error al buscar:", e);
+  }
 }
 
 function togglePlay() {
+  if (!isPlayerReady) return;
+  
   if (isPlaying) {
     player.pauseVideo();
   } else {
@@ -218,7 +269,7 @@ function toggleShuffle() {
   btn.classList.toggle('active', isShuffle);
 }
 
-// Animación al hacer clic en cualquier botón
+// Animación de botones
 document.querySelectorAll('.controls button').forEach(button => {
   button.addEventListener('click', function() {
     this.style.transform = 'scale(0.9)';
@@ -227,3 +278,13 @@ document.querySelectorAll('.controls button').forEach(button => {
     }, 100);
   });
 });
+
+// Verificar periódicamente si el reproductor está listo
+const checkPlayerReady = setInterval(() => {
+  if (typeof YT !== 'undefined' && typeof YT.Player !== 'undefined') {
+    clearInterval(checkPlayerReady);
+    if (!player) {
+      onYouTubeIframeAPIReady();
+    }
+  }
+}, 100);
