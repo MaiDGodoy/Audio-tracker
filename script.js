@@ -88,7 +88,7 @@ function initPlayer() {
       src: [playlist[index].src],
       html5: true,
       format: ['mp3'],
-      preload: 'true',
+      preload: true,
       onload: function() {
         document.getElementById('duration').textContent = formatTime(sound.duration());
             // Actualizar título al cargar
