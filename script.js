@@ -3,7 +3,7 @@ const playlist = [
       title: "Disc 1:Inazuma", 
       artist: "Genshin Impact", 
       duration: "50:01", 
-      src: "audios/Realm of Tranquil Eternity - Disc 1_ Sakura and Violet ThunderGenshin Impact.mp3" 
+      src: "https://drive.google.com/file/d/1ptQDN-Aga_uMeIbEZyObu8r_r0GPOIkt/view?usp=sharing" 
     },
     { 
       title: "Liyue Harbor", 
@@ -87,6 +87,8 @@ function initPlayer() {
     sound = new Howl({
       src: [playlist[index].src],
       html5: true,
+      format: ['mp3'],
+      preload: 'metadata',
       onload: function() {
         document.getElementById('duration').textContent = formatTime(sound.duration());
             // Actualizar título al cargar
@@ -104,13 +106,33 @@ function initPlayer() {
         document.getElementById('play-btn').textContent = '▶';
         updatePlaylistUI();
       },
-      onend: () => {
-        if (isRepeat) playTrack(currentTrack);
-        else nextTrack();
-      }
-    });
-    sound.play();
+     onend: () => {
+      if (isRepeat) playTrack(currentTrack);
+      else nextTrack();
+    },
+    onplayerror: function() {
+      // Intenta desbloquear el audio
+      sound.once('unlock', function() {
+        sound.play();
+      });
+    }
+  });
+  
+  sound.play();
+}
+
+new Howl({
+  src: [playlist[index].src],
+  html5: true,
+  format: ['mp3'],
+  xhr: {
+    method: 'GET',
+    headers: {
+      'Origin': window.location.origin
+    },
+    withCredentials: false
   }
+});
   
   function updatePlayerTitle() {
     const currentTrackData = playlist[currentTrack];
