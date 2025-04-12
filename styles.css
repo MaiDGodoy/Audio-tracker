@@ -86,33 +86,40 @@ body {
 .controls {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
   margin: 15px 0;
 }
 
 .controls button {
-  background: rgba(255, 239, 175, 0.3);
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  background:transparent !important;
+  border: none !important;
+  width: auto !important;
+  height: auto !important;
   color: #ffefaf;
-  font-size: 16px;
+  font-size: 24px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 8px; /* Espacio para mejor tacto */
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 .controls button:hover {
-  background: rgba(255, 239, 175, 0.5);
+  background: transparent !important;
+  transform:scale(1.1);
+  text-shadow: 0 0 8px rgba(255, 239, 175, 0.6);
 }
 
 .controls button.active {
-  background: rgba(255, 239, 175, 0.7);
-  box-shadow: 0 0 10px #ffefaf;
+  background: transparent !important;
+  color: #ffffff;
 }
+
+
 
 .playlist {
   max-height: 200px;
