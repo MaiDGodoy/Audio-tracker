@@ -121,18 +121,7 @@ function initPlayer() {
   sound.play();
 }
 
-new Howl({
-  src: [playlist[index].src],
-  html5: true,
-  format: ['mp3'],
-  xhr: {
-    method: 'GET',
-    headers: {
-      'Origin': window.location.origin
-    },
-    withCredentials: false
-  }
-});
+
   
   function updatePlayerTitle() {
     const currentTrackData = playlist[currentTrack];
