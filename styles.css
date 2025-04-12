@@ -298,92 +298,103 @@ body {
   }
 /* CONTENEDOR PRINCIPAL */
 .volume-control {
-  position: relative;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-}
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+  }
+  
+  /* BOTÓN DE VOLUMEN */
+  #volume-btn {
+    background: transparent;
+    border: none;
+    color: #ffefaf;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    z-index: 1;
+  }
+  
+  #volume-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  /* CONTENEDOR DEL SLIDER - AHORA TAMAÑO PRECISO */
+  .volume-slider-container {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.95);
+    padding: 10px 8px; /* Reducido para contener solo el slider */
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    display: none;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    width: 24px; /* Ancho ajustado */
+    height: 110px; /* Alto suficiente para el slider */
+    opacity: 0; /* Inicialmente transparente */
+  pointer-events: none; /* Ignora eventos de ratón cuando está oculto */
+  transition: opacity 0.2s ease-out; /* Transición suave */
+  }
+  
+  /* SLIDER VERTICAL - POSICIÓN CORREGIDA */
+  #volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 6px;
+    height: 100px;
+    background: linear-gradient(to top, 
+                rgba(255, 239, 175, 0.8), 
+                rgba(255, 239, 175, 0.3));
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    left: 0; /* Reset de posición */
+    transform: none; /* Elimina rotación */
+  }
+  
+  /* THUMB CENTRADO */
+  #volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffefaf;
+    border: 1px solid #ffd700;
+    cursor: grab;
+    margin-top: -5px; /* Centrado vertical */
+    transition: all 0.2s;
+  }
+  
+  #volume-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffefaf;
+    border: 1px solid #ffd700;
+    cursor: grab;
+  }
 
-/* BOTÓN DE VOLUMEN */
-#volume-btn {
-  background: transparent;
-  border: none;
-  color: #ffefaf;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease;
-  z-index: 1;
+  /* MOSTRAR AL HOVER - VERSIÓN CORREGIDA */
+.volume-control:hover .volume-slider-container {
+    display: block; /* Aseguramos que el contenedor se muestre */
+    opacity: 1; /* Hacemos visible */
+    pointer-events: auto; /* Permitimos interacción */
+    animation: fadeIn 0.2s ease-out;
 }
-
-#volume-btn:hover {
-  transform: scale(1.1);
-}
-
-/* CONTENEDOR DEL SLIDER - AHORA TAMAÑO PRECISO */
-.volume-slider-container {
-  position: absolute;
-  top: calc(100% + 5px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.95);
-  padding: 10px 8px; /* Reducido para contener solo el slider */
-  border-radius: 8px;
-  border: 1px solid rgba(255, 215, 0, 0.4);
-  display: none;
-  z-index: 100;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  width: 24px; /* Ancho ajustado */
-  height: 110px; /* Alto suficiente para el slider */
-}
-
-/* SLIDER VERTICAL - POSICIÓN CORREGIDA */
-#volume-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 6px;
-  height: 100px;
-  background: linear-gradient(to top, 
-              rgba(255, 239, 175, 0.8), 
-              rgba(255, 239, 175, 0.3));
-  border-radius: 3px;
-  cursor: pointer;
-  margin: 0 auto;
-  display: block;
-  position: relative;
-  left: 0; /* Reset de posición */
-  transform: none; /* Elimina rotación */
-}
-
-/* THUMB CENTRADO */
-#volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #ffefaf;
-  border: 1px solid #ffd700;
-  cursor: grab;
-  margin-top: -5px; /* Centrado vertical */
-  transition: all 0.2s;
-}
-
-#volume-slider::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #ffefaf;
-  border: 1px solid #ffd700;
-  cursor: grab;
-}
-
-/* ANIMACIÓN */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(5px); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
+  
+  /* ANIMACIÓN */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(5px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
