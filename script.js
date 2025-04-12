@@ -265,7 +265,69 @@ function initPlayer() {
     });
   });
 
- 
+ // Control de volumen - Versión corregida
+document.addEventListener('DOMContentLoaded', function() {
+    const volumeBtn = document.getElementById('volume-btn');
+    const volumeSlider = document.getElementById('volume-slider');
+    const volumeIcon = volumeBtn.querySelector('i');
+    
+    // Variable para almacenar el último volumen antes de mutear
+    let lastVolume = 1;
+  
+    // Función para actualizar el icono del volumen
+    function updateVolumeIcon(volume) {
+      if (volume === 0) {
+        volumeIcon.className = 'fas fa-volume-mute';
+      } else if (volume < 0.5) {
+        volumeIcon.className = 'fas fa-volume-down';
+      } else {
+        volumeIcon.className = 'fas fa-volume-up';
+      }
+    }
+  
+    // Inicializar el volumen
+    if (sound) {
+      sound.volume(lastVolume);
+      volumeSlider.value = lastVolume;
+    }
+    updateVolumeIcon(lastVolume);
+  
+    // Control deslizante de volumen
+    volumeSlider.addEventListener('input', function() {
+      const volume = parseFloat(this.value);
+      if (sound) {
+        sound.volume(volume);
+        if (volume > 0) {
+          lastVolume = volume; // Actualizar último volumen conocido
+        }
+      }
+      updateVolumeIcon(volume);
+    });
+  
+    // Click en el botón de volumen para silenciar/activar
+    volumeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (sound) {
+        if (sound.volume() > 0) {
+          // Silenciar (guardamos el volumen actual)
+          lastVolume = sound.volume();
+          sound.volume(0);
+          volumeSlider.value = 0;
+        } else {
+          // Restaurar volumen
+          sound.volume(lastVolume);
+          volumeSlider.value = lastVolume;
+        }
+        updateVolumeIcon(sound.volume());
+      }
+    });
+  
+    // Cerrar el control de volumen al hacer clic fuera
+    document.addEventListener('click', function() {
+      const volumeContainer = document.querySelector('.volume-container');
+      volumeContainer.style.display = 'none';
+    });
+  });
   
   // Iniciar
   document.addEventListener('DOMContentLoaded', initPlayer);
