@@ -6,10 +6,10 @@ const playlist = [
       src:"https://www.dropbox.com/scl/fi/jg9nx593hejrn19ocp04e/Realm-of-Tranquil-Eternity-Disc-1_-Sakura-and-Violet-ThunderGenshin-Impact.mp3?rlkey=eeac442as89tf6mvmlmuw8ulm&raw=1"
     },
     { 
-      title: "Liyue Harbor", 
-      artist: "HOYO-MiX", 
-      duration: "4:12", 
-      src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" 
+      title: "Isabella's Lullaby", 
+      artist: "Ash", 
+      duration: "7:18", 
+      src: "https://www.dropbox.com/scl/fi/n0ymferge9xacyx7bwrkx/Isabella-s-Lullaby-vocal-and-mandolin-ver.-extended.mp3?rlkey=bxk52om38bzhhewmkiq7kja1x&st=izlkdnp9&dl=1" 
     }
   ];
   
