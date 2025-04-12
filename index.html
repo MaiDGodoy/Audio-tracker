@@ -5,16 +5,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Rozha+One&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
   <div class="music-player">
-    <h2 class="now-playing-title">Selecciona una canción</h2>
+    <h2 class="now-playing-title"></h2>
     <div class="progress-container" id="progress-container">
-      <div class="time-display">
-        <span id="current-time">0:00</span>
-        <span id="duration">0:00</span>
-      </div>
+        <div class="time-display">
+            <span id="current-time">0:00</span>
+            <span id="duration">0:00</span>
+          </div>
       <div class="progress-bar" id="progress-bar"></div>
+      
     </div>
     <div class="controls">
       <button id="prev-btn">⏮</button>
@@ -22,15 +24,11 @@
       <button id="next-btn">⏭</button>
       <button id="repeat-btn"><i class="fas fa-redo"></i></button>
       <button id="shuffle-btn"><i class="fas fa-random"></i></button>
+      
     </div>
     <div class="playlist" id="playlist"></div>
-    
-    <!-- Reproductor YouTube oculto - ESENCIAL -->
-    <div id="youtube-player"></div>
   </div>
-
-  <!-- API de YouTube - DEBE ESTAR ANTES DEL script.js -->
-  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
