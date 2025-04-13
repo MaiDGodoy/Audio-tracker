@@ -348,3 +348,57 @@ body {
   border: 1px solid #ffd700;
   cursor: grab;
 }
+
+------------ prueba
+
+/* Corrección para la barra amarilla */
+.playlist::-webkit-scrollbar-thumb {
+  background-color: #ffefaf;
+  border-radius: 4px;
+  width: 4px; /* Hacemos la barra más delgada */
+}
+
+/* Corrección para el texto de las canciones */
+.track-content {
+  position: relative;
+  padding-right: 40px; /* Reducimos el espacio para la duración */
+  width: calc(100% - 50px); /* Aseguramos que no se salga */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Corrección para la posición de los botones */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 15px 0 10px; /* Ajustamos márgenes */
+  padding: 0 5px; /* Añadimos padding lateral */
+}
+
+/* Corrección para el volumen */
+.volume-slider-container {
+  bottom: -105px; /* Ajustamos posición vertical */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 6px; /* Ajustamos padding */
+}
+
+/* Ajuste para la duración de las canciones */
+.track-duration {
+  right: 5px; /* Movemos más a la izquierda */
+  font-size: 12px; /* Hacemos un poco más pequeño */
+}
+
+/* Asegurar que el título no se desborde */
+.now-playing-title {
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+/* Corrección para items de playlist */
+.playlist-item {
+  padding: 8px 5px 8px 30px; /* Ajustamos padding */
+}
