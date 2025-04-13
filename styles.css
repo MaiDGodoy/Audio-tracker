@@ -296,7 +296,7 @@ body {
     transform: translateY(-50%);
     color: rgba(255, 239, 175, 0.7);
   }
-.volume-control {
+  .volume-control {
     position: relative;
     display: inline-flex;
     justify-content: center;
@@ -321,13 +321,13 @@ body {
   /* Contenedor del slider */
   .volume-slider-container {
     position: absolute;
-    width: 20px; /* ancho mayor para alojar el slider rotado */
-    height: auto;
+    width: 24px; /* ancho mayor para alojar el slider rotado */
+    height: 100px;
     top: calc(100% + 5px);
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.95);
-    padding: 10px 8px;
+    padding: 10px 5px;
     border-radius: 8px;
     border: 1px solid rgba(255, 215, 0, 0.4);
     opacity: 0;
@@ -338,6 +338,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow:hidden;
   }
   
   /* Mostrar al hacer hover */
@@ -353,11 +354,15 @@ body {
     appearance: none;
     width: 100px;
     height: 6px;
-    transform: rotate(-90deg); /* Rota el slider para que sea vertical */
+    transform: rotate(-90deg) translateY(-47px); /* Rota el slider para que sea vertical */
     background: linear-gradient(to right, rgba(255, 239, 175, 0.8), rgba(255, 239, 175, 0.3));
     border-radius: 3px;
     cursor: pointer;
     outline: none;
+    transform-origin: left center;
+    margin-top: 0; /* Eliminamos margen que desplazaba elementos */
+    position: relative;
+    left: 42px; /* Centrado horizontal */
   }
   
   /* Pulgar (thumb) */
