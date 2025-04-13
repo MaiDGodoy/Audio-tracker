@@ -169,6 +169,48 @@ function initPlayer() {
       document.getElementById('repeat-btn').addEventListener('click', toggleRepeat);
       document.getElementById('shuffle-btn').addEventListener('click', toggleShuffle);
       document.getElementById('progress-container').addEventListener('click', seek);
+
+
+      const progressContainer = document.getElementById('progress-container');
+  
+      // Click para buscar
+      progressContainer.addEventListener('click', (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const percent = (e.clientX - rect.left) / rect.width;
+        const newTime = sound.duration() * percent;
+        
+        sound.seek(newTime);
+        document.getElementById('progress-bar').style.width = `${percent * 100}%`;
+        document.getElementById('current-time').textContent = formatTime(newTime);
+      });
+      
+      // Arrastre para buscar
+      progressContainer.addEventListener('mousedown', (e) => {
+        isSeeking = true;
+        seek(e);
+        document.addEventListener('mousemove', seek);
+        document.addEventListener('mouseup', () => {
+          isSeeking = false;
+          document.removeEventListener('mousemove', seek);
+        });
+      });
+      
+      // Soporte para dispositivos táctiles
+      progressContainer.addEventListener('touchstart', (e) => {
+        isSeeking = true;
+        seek(e.touches[0]);
+        document.addEventListener('touchmove', (e) => seek(e.touches[0]));
+        document.addEventListener('touchend', () => {
+          isSeeking = false;
+          document.removeEventListener('touchmove', seek);
+        });
+      });
+      
+      // Evitar que el arrastre seleccione texto
+      progressContainer.addEventListener('selectstart', (e) => {
+        if (isSeeking) e.preventDefault();
+      });
+    
     }
   
   function playTrack(index) {
@@ -281,28 +323,22 @@ function initPlayer() {
     }
 }
   
-  function seek(e) {
-    if (!sound) return;
-    const wasPlaying = sound.playing(); // Guardar estado antes de seek
-    const rect = e.currentTarget.getBoundingClientRect();
-    const percent = (e.clientX - rect.left) / rect.width;
-    const newTime = sound.duration() * percent;
-    
-    sound.seek(newTime);
-    document.getElementById('progress-bar').style.width = `${percent * 100}%`;
-    document.getElementById('current-time').textContent = formatTime(newTime);
-    
-    if (!sound.playing()) {
-        updateProgressBar();
-    }
+ // REEMPLAZA TU FUNCIÓN seek Y AGREGA ESTE CÓDIGO:
 
-    if (wasPlaying) {
-        sound.play();
-    } else {
-        updateProgressBar(); // Forzar actualización visual si estaba pausado
-    }
+let isSeeking = false;
+
+function seek(e) {
+  if (!sound || !isSeeking) return;
+  
+  const rect = e.currentTarget.getBoundingClientRect();
+  let percent = (e.clientX - rect.left) / rect.width;
+  percent = Math.max(0, Math.min(1, percent)); // Asegurar que esté entre 0 y 1
+  
+  const newTime = sound.duration() * percent;
+  sound.seek(newTime);
+  document.getElementById('progress-bar').style.width = `${percent * 100}%`;
+  document.getElementById('current-time').textContent = formatTime(newTime);
 }
-
   
   function togglePlay() {
     if (isPlaying) {
