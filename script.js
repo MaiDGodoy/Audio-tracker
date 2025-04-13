@@ -327,3 +327,14 @@ volumeSlider.addEventListener('mousedown', function(e) {
 
 // Inicializar
 initVolume();
+document.addEventListener('DOMContentLoaded', function() {
+    initPlayer();
+    
+    // También puedes precargar el primer track
+    const preloadSound = new Howl({
+        src: [playlist[0].src],
+        html5: true,
+        preload: true,
+        volume: 0
+    });
+});
