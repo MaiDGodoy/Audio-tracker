@@ -183,35 +183,27 @@ body {
     justify-content: center;
   }
   
-  /* MODIFICACIONES PRINCIPALES PARA LOS BOTONES DE PLAY/PAUSA */
-  
-  /* Mostrar siempre play (▶) en hover para tracks no activos */
-  .playlist-item:not(.active):hover .track-play-button {
+  /* MOSTRAR PLAY SOLO EN HOVER (PARA TODOS LOS CASOS) */
+  .playlist-item:hover .track-play-button {
     opacity: 1;
-    display: flex;
   }
   
-  /* Mostrar pausa (❚❚) solo en el track activo cuando está pausado */
-  .playlist-item.active.paused .track-play-button {
-    opacity: 1;
-    display: flex;
-  }
-  
-  /* Ocultar botón en el track activo cuando está reproduciendo */
+  /* OCULTAR BOTÓN DURANTE REPRODUCCIÓN */
   .playlist-item.active.playing .track-play-button {
     display: none;
   }
   
-  /* Forzar el símbolo de play en todos los tracks no activos */
+  /* FORZAR SÍMBOLO PLAY EN TRACKS NO ACTIVOS */
   .playlist-item:not(.active) .track-play-button::before {
     content: "▶";
   }
   
-  /* Forzar el símbolo de pausa solo en el track activo pausado */
+  /* FORZAR SÍMBOLO PAUSA EN TRACK ACTIVO PAUSADO */
   .playlist-item.active.paused .track-play-button::before {
     content: "❚❚";
   }
   
+  /* ONDAS DE AUDIO - SOLO VISIBLES DURANTE REPRODUCCIÓN */
   .track-playing-indicator {
     position: absolute;
     left: 10px;
@@ -331,4 +323,54 @@ body {
     background: rgba(0, 0, 0, 0.95);
     padding: 12px 6px;
     border-radius: 8px;
-    border: 1px solid rgba
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 100;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    width: 30px;
+    padding: 8px 0;
+  }
+  
+  .volume-control:hover .volume-slider-container {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  #volume-slider {
+    transform: rotate(-90deg);
+    width: 90px;
+    height: 6px;
+    appearance: none;
+    border-radius: 5px;
+    background: linear-gradient(to top, #ffefaf, rgba(255, 239, 175, 0.3));
+    cursor: pointer;
+    outline: none;
+    margin: 0;
+  }
+  
+  #volume-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ffefaf;
+    border: 1px solid #ffd700;
+    cursor: grab;
+    box-shadow: 0 0 2px rgba(0,0,0,0.5);
+  }
+  
+  #volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ffefaf;
+    border: 1px solid #ffd700;
+    cursor: grab;
+    border: none;
+  }
