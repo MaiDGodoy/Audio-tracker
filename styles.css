@@ -172,7 +172,7 @@ body {
     transform: translateY(-50%);
     background: transparent;
     border: none;
-    color: transparent; /* Hacemos el texto transparente */
+    color: transparent;
     font-size: 14px;
     width: 20px;
     height: 20px;
@@ -201,16 +201,6 @@ body {
     opacity: 1;
 }
 
-/* Mostrar botón en hover para track activo */
-.playlist-item.active:hover .track-play-button {
-    opacity: 1;
-}
-
-/* Ocultar botón durante reproducción (mostrar solo ondas) */
-.playlist-item.active.playing .track-play-button {
-    display: none;
-}
-
 /* ONDAS DE AUDIO */
 .track-playing-indicator {
     position: absolute;
@@ -224,17 +214,29 @@ body {
     align-items: flex-end;
 }
 
-/* Mostrar ondas durante reproducción */
+/* --- COMPORTAMIENTO MODIFICADO --- */
+
+/* Mostrar ondas durante reproducción (estado normal) */
 .playlist-item.active.playing .track-playing-indicator {
     display: flex;
 }
 
-/* Ocultar ondas al hacer hover (para mostrar el pausa) */
-.playlist-item.active.playing:hover .track-playing-indicator {
+/* Ocultar botón durante reproducción (estado normal) */
+.playlist-item.active.playing .track-play-button {
     display: none;
 }
 
-/* Resto de tus estilos para las ondas... */
+/* Al hacer hover sobre track que se está reproduciendo */
+.playlist-item.active.playing:hover .track-playing-indicator {
+    display: none; /* Ocultar ondas */
+}
+
+.playlist-item.active.playing:hover .track-play-button {
+    display: flex; /* Mostrar botón */
+    opacity: 1; /* Hacerlo visible */
+}
+
+/* Estilos para las ondas... */
 .track-playing-indicator span {
     display: inline-block;
     width: 4px;
