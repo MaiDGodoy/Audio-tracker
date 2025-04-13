@@ -172,46 +172,52 @@ function initPlayer() {
 
 
       const progressContainer = document.getElementById('progress-container');
-  
-      // Click para buscar
-      progressContainer.addEventListener('click', (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const percent = (e.clientX - rect.left) / rect.width;
-        const newTime = sound.duration() * percent;
-        
-        sound.seek(newTime);
-        document.getElementById('progress-bar').style.width = `${percent * 100}%`;
-        document.getElementById('current-time').textContent = formatTime(newTime);
-      });
-      
-      // Arrastre para buscar
-      progressContainer.addEventListener('mousedown', (e) => {
-        isSeeking = true;
-        seek(e);
-        document.addEventListener('mousemove', seek);
-        document.addEventListener('mouseup', () => {
-          isSeeking = false;
-          document.removeEventListener('mousemove', seek);
-        });
-      });
-      
-      // Soporte para dispositivos táctiles
-      progressContainer.addEventListener('touchstart', (e) => {
-        isSeeking = true;
-        seek(e.touches[0]);
-        document.addEventListener('touchmove', (e) => seek(e.touches[0]));
-        document.addEventListener('touchend', () => {
-          isSeeking = false;
-          document.removeEventListener('touchmove', seek);
-        });
-      });
-      
-      // Evitar que el arrastre seleccione texto
-      progressContainer.addEventListener('selectstart', (e) => {
-        if (isSeeking) e.preventDefault();
-      });
+  const progressBar = document.getElementById('progress-bar');
+  let isDragging = false;
+
+  // Función para manejar el arrastre
+  const handleSeek = (e) => {
+    if (!sound || !isDragging) return;
     
+    const rect = progressContainer.getBoundingClientRect();
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    let percent = (clientX - rect.left) / rect.width;
+    percent = Math.max(0, Math.min(1, percent));
+    
+    const newTime = sound.duration() * percent;
+    sound.seek(newTime);
+    progressBar.style.width = `${percent * 100}%`;
+    document.getElementById('current-time').textContent = formatTime(newTime);
+  };
+
+  // Evento para iniciar el arrastre
+  const startDrag = (e) => {
+    isDragging = true;
+    progressContainer.classList.add('dragging');
+    handleSeek(e); // Actualiza inmediatamente al inicio del arrastre
+  };
+
+  // Evento para finalizar el arrastre
+  const endDrag = () => {
+    if (isDragging) {
+      isDragging = false;
+      progressContainer.classList.remove('dragging');
     }
+  };
+
+  // Event listeners para mouse
+  progressContainer.addEventListener('mousedown', startDrag);
+  document.addEventListener('mousemove', handleSeek);
+  document.addEventListener('mouseup', endDrag);
+
+  // Event listeners para pantallas táctiles
+  progressContainer.addEventListener('touchstart', startDrag);
+  document.addEventListener('touchmove', handleSeek);
+  document.addEventListener('touchend', endDrag);
+
+  // Prevenir comportamiento por defecto en eventos táctiles
+  progressContainer.addEventListener('touchstart', (e) => e.preventDefault());
+}
   
   function playTrack(index) {
     if (sound) sound.stop();
