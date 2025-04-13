@@ -82,6 +82,13 @@ function initVolumeControls() {
   }
 }
 
+
+
+document.getElementById('volume-btn').addEventListener('click', () => {
+  const container = document.querySelector('.volume-slider-container');
+  container.classList.toggle('show');
+});
+
 // Precargar primer track
 function preloadFirstTrack() {
   new Howl({
@@ -337,6 +344,28 @@ function initPlayer() {
       }, 100);
     });
   });
+
+  let isDragging = false;
+
+  const progressContainer = document.getElementById('progress-container');
+  
+  progressContainer.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      seek(e);
+  });
+  
+  document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+          seek(e);
+      }
+  });
+  
+  document.addEventListener('mouseup', () => {
+      if (isDragging) {
+          isDragging = false;
+      }
+  });
+
 
 
 
