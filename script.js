@@ -338,68 +338,7 @@ function initPlayer() {
     });
   });
 
-// Control de volumen mejorado
-const volumeBtn = document.getElementById('volume-btn');
-const volumeSlider = document.getElementById('volume-slider');
-const volumeIcon = volumeBtn.querySelector('i');
 
-// Estado inicial
-let lastVolume = 0.7;
-volumeSlider.value = lastVolume;
-
-// Función para actualizar el ícono
-function updateVolumeIcon(volume) {
-    volume = parseFloat(volume);
-    if (volume === 0) {
-        volumeIcon.className = 'fas fa-volume-mute';
-        volumeIcon.style.color = '#ff6b6b';
-    } else if (volume < 0.5) {
-        volumeIcon.className = 'fas fa-volume-down';
-        volumeIcon.style.color = '#ffefaf';
-    } else {
-        volumeIcon.className = 'fas fa-volume-up';
-        volumeIcon.style.color = '#ffefaf';
-    }
-}
-
-// Evento del slider
-volumeSlider.addEventListener('input', function() {
-    const volume = parseFloat(this.value);
-    if (sound) {
-        sound.volume(volume);
-        lastVolume = volume;
-    }
-    updateVolumeIcon(volume);
-});
-
-// Click para mute/desmute
-volumeBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    if (!sound) return;
-
-    if (sound.volume() > 0) {
-        // Silenciar
-        lastVolume = sound.volume();
-        sound.volume(0);
-        volumeSlider.value = 0;
-    } else {
-        // Restaurar volumen
-        sound.volume(lastVolume);
-        volumeSlider.value = lastVolume;
-    }
-    updateVolumeIcon(sound.volume());
-});
-
-// Inicialización
-updateVolumeIcon(volumeSlider.value);
-
-// Asegurar que el slider no propague eventos
-volumeSlider.addEventListener('mousedown', function(e) {
-    e.stopPropagation();
-});
-
-// Inicializar
-initVolume();
 
 // Inicializar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', initializeMusicPlayer);
