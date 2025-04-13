@@ -23,8 +23,81 @@ const playlist = [
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
 }
   
+
+function initializeMusicPlayer() {
+  initPlayer();
+  initVolumeControls();
+  preloadFirstTrack();
+}
+
+// Inicializar controles de volumen
+function initVolumeControls() {
+  const volumeBtn = document.getElementById('volume-btn');
+  const volumeSlider = document.getElementById('volume-slider');
+  const volumeIcon = volumeBtn.querySelector('i');
+  let lastVolume = 0.7;
+
+  volumeSlider.value = lastVolume;
+  updateVolumeIcon(volumeSlider.value);
+
+  volumeSlider.addEventListener('input', function() {
+      const volume = parseFloat(this.value);
+      if (sound) {
+          sound.volume(volume);
+          lastVolume = volume;
+      }
+      updateVolumeIcon(volume);
+  });
+
+  volumeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (!sound) return;
+
+      if (sound.volume() > 0) {
+          lastVolume = sound.volume();
+          sound.volume(0);
+          volumeSlider.value = 0;
+      } else {
+          sound.volume(lastVolume);
+          volumeSlider.value = lastVolume;
+      }
+      updateVolumeIcon(sound.volume());
+  });
+
+  function updateVolumeIcon(volume) {
+      volume = parseFloat(volume);
+      if (volume === 0) {
+          volumeIcon.className = 'fas fa-volume-mute';
+          volumeIcon.style.color = '#ff6b6b';
+      } else if (volume < 0.5) {
+          volumeIcon.className = 'fas fa-volume-down';
+          volumeIcon.style.color = '#ffefaf';
+      } else {
+          volumeIcon.className = 'fas fa-volume-up';
+          volumeIcon.style.color = '#ffefaf';
+      }
+  }
+}
+
+// Precargar primer track
+function preloadFirstTrack() {
+  new Howl({
+      src: [playlist[0].src],
+      html5: true,
+      preload: true,
+      volume: 0,
+      onload: function() {
+          console.log("Track precargado!");
+      }
+  });
+}
+
+
+
+
 function initPlayer() {
   const playlistElement = document.getElementById('playlist');
       updatePlayerTitle();
@@ -327,14 +400,6 @@ volumeSlider.addEventListener('mousedown', function(e) {
 
 // Inicializar
 initVolume();
-document.addEventListener('DOMContentLoaded', function() {
-    initPlayer();
-    
-    // También puedes precargar el primer track
-    const preloadSound = new Howl({
-        src: [playlist[0].src],
-        html5: true,
-        preload: true,
-        volume: 0
-    });
-});
+
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', initializeMusicPlayer);
