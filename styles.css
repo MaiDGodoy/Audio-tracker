@@ -305,82 +305,83 @@ body {
   }
   /* Contenedor principal del volumen (junto a los botones de control) */
 /* Contenedor principal del volumen */
+/* Contenedor principal del volumen */
 .volume-control {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  height: 36px; /* Reducido de 40px */
-  margin-left: 0; /* Cambiado de 8px */
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+    height: 40px;
 }
 
 /* Botón del volumen */
 #volume-btn {
-  background: transparent;
-  border: none;
-  color: #ffefaf;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
+    background: transparent;
+    border: none;
+    color: #ffefaf;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }
 
 /* Contenedor del slider */
 .volume-slider-container {
-  position: absolute;
-  bottom: -100px; /* Posición debajo del ícono */
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.95);
-  padding: 12px 6px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 215, 0, 0.4);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-  z-index: 100;
-  height: 90px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    bottom: -110px; /* Posición debajo del ícono */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.95);
+    padding: 15px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 100;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Mostrar slider al hacer hover */
 .volume-control:hover .volume-slider-container {
-  opacity: 1;
-  pointer-events: auto;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 /* Slider vertical */
 #volume-slider {
-  -webkit-appearance: slider-vertical;
-  width: 6px;
-  height: 80px;
-  background: linear-gradient(to top, #ffefaf, rgba(255, 239, 175, 0.3));
-  cursor: pointer;
-  outline: none;
-  margin: 0;
+    -webkit-appearance: slider-vertical;
+    width: 6px;
+    height: 80px;
+    background: linear-gradient(to top, #ffefaf, rgba(255, 239, 175, 0.3));
+    cursor: pointer;
+    outline: none;
+    margin: 0;
 }
 
 /* Estilo del thumb (deslizador) */
 #volume-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #ffefaf;
-  border: 1px solid #ffd700;
-  cursor: grab;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffefaf;
+    border: 1px solid #ffd700;
+    cursor: grab;
 }
 
 #volume-slider::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #ffefaf;
-  border: 1px solid #ffd700;
-  cursor: grab;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffefaf;
+    border: 1px solid #ffd700;
+    cursor: grab;
 }
