@@ -296,34 +296,38 @@ body {
     transform: translateY(-50%);
     color: rgba(255, 239, 175, 0.7);
   }
-  .volume-control {
+/* Contenedor principal del volumen (junto a los botones de control) */
+.volume-control {
     position: relative;
     display: inline-flex;
-    justify-content: center;
     align-items: center;
-    height: 40px;
-  }
-  
-  /* Botón del volumen */
-  #volume-btn {
+    margin-left: 5px; /* Espacio respecto a otros botones */
+}
+
+/* Botón del volumen (ícono) */
+#volume-btn {
     background: transparent;
     border: none;
-    color: #ffefaf;
+    color: #ffefaf; /* Amarillo claro */
     font-size: 20px;
     cursor: pointer;
     padding: 8px;
+    transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1;
-  }
-  
-  /* Contenedor del slider */
-  .volume-slider-container {
+}
+
+/* Efecto hover del botón (consistente con otros controles) */
+#volume-btn:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 8px rgba(255, 239, 175, 0.6);
+}
+
+/* Contenedor del slider (aparece debajo del ícono) */
+.volume-slider-container {
     position: absolute;
-    width: 24px; /* ancho mayor para alojar el slider rotado */
-    height: 100px;
-    top: calc(100% + 5px);
+    top: 100%; /* Posición debajo del ícono */
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.95);
@@ -332,41 +336,36 @@ body {
     border: 1px solid rgba(255, 215, 0, 0.4);
     opacity: 0;
     pointer-events: none;
-    z-index: 100;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: opacity 0.2s ease-out;
+    transition: opacity 0.2s ease;
+    z-index: 100; /* Asegura que esté por encima de otros elementos */
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow:hidden;
-  }
-  
-  /* Mostrar al hacer hover */
-  .volume-control:hover .volume-slider-container {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Mostrar slider al hacer hover */
+.volume-control:hover .volume-slider-container {
     opacity: 1;
     pointer-events: auto;
-  }
-  
-  /* Estilo vertical del slider */
-  #volume-slider {
-    margin-top: 40px;
+}
+
+/* Slider vertical personalizado (amarillo) */
+#volume-slider {
     -webkit-appearance: none;
     appearance: none;
-    width: 100px;
-    height: 6px;
-    transform: rotate(-90deg) translateY(-47px); /* Rota el slider para que sea vertical */
-    background: linear-gradient(to right, rgba(255, 239, 175, 0.8), rgba(255, 239, 175, 0.3));
+    width: 6px;
+    height: 80px;
+    background: linear-gradient(to bottom, #ffefaf, rgba(255, 239, 175, 0.3));
     border-radius: 3px;
-    cursor: pointer;
     outline: none;
-    transform-origin: left center;
-    margin-top: 0; /* Eliminamos margen que desplazaba elementos */
-    position: relative;
-    left: 42px; /* Centrado horizontal */
-  }
-  
-  /* Pulgar (thumb) */
-  #volume-slider::-webkit-slider-thumb {
+    cursor: pointer;
+    margin: 0;
+}
+
+/* Estilo del "thumb" (deslizador) */
+#volume-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 14px;
     height: 14px;
@@ -374,13 +373,13 @@ body {
     background: #ffefaf;
     border: 1px solid #ffd700;
     cursor: grab;
-  }
-  
-  #volume-slider::-moz-range-thumb {
+}
+
+#volume-slider::-moz-range-thumb {
     width: 14px;
     height: 14px;
     border-radius: 50%;
     background: #ffefaf;
     border: 1px solid #ffd700;
     cursor: grab;
-  }
+}
