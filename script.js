@@ -324,3 +324,6 @@ updateVolumeIcon(volumeSlider.value);
 volumeSlider.addEventListener('mousedown', function(e) {
     e.stopPropagation();
 });
+
+// Inicializar
+initVolume();
