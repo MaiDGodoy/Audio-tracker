@@ -60,6 +60,8 @@ body {
     background: rgba(255, 215, 0, 0.3);
     border-radius: 3px;
     cursor: pointer;
+    user-select: none;
+
     margin: 20px 0 15px;
   }
   
@@ -72,7 +74,14 @@ body {
     background: #ffefaf;
     border-radius: 3px;
     transition: width 0.1s linear;
+    will-change: width; /* Optimiza las animaciones */
   }
+
+ /* Elimina la transición durante el arrastre */
+.progress-container.dragging .progress-bar {
+  transition: none;
+}
+
   
   .time-display {
     position: absolute;
