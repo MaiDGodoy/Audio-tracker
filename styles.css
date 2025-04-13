@@ -84,16 +84,17 @@ body {
     font-size: 12px;
   }
   
-  .controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px; /* Reducido de 12px */
-    margin: 12px 0; /* Ajustado de 15px */
-    padding: 0 5px;
-    position: relative; /* Necesario para el volumen */
-    flex-wrap: nowrap;
-  }
+ .controls {
+  position: relative; /* Añade esto */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0;
+  padding: 0 10px;
+  flex-wrap: nowrap;
+  overflow: visible; /* Importante */
+}
   
   .controls button {
     background:transparent !important;
@@ -354,33 +355,45 @@ body {
   pointer-events: auto;
 }
 
-/* Slider vertical */
+/* NUEVOS ESTILOS PARA EL VOLUMEN */
 #volume-slider {
-  -webkit-appearance: slider-vertical;
-  width: 6px;
-  height: 80px;
-  background: linear-gradient(to top, #ffefaf, rgba(255, 239, 175, 0.3));
-  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80px;
+  height: 6px;
+  background: rgba(255, 239, 175, 0.3);
+  border-radius: 3px;
   outline: none;
   margin: 0;
+  transform: rotate(-90deg) translateY(40px) translateX(-40px);
+  position: absolute;
 }
 
-/* Estilo del thumb (deslizador) */
 #volume-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 14px;
   height: 14px;
   border-radius: 50%;
   background: #ffefaf;
-  border: 1px solid #ffd700;
-  cursor: grab;
+  cursor: pointer;
 }
 
-#volume-slider::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: #ffefaf;
-  border: 1px solid #ffd700;
-  cursor: grab;
+.volume-slider-container {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.95);
+  padding: 15px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 100;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
