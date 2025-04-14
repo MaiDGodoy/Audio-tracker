@@ -151,17 +151,31 @@ function initPlayer() {
         item.appendChild(contentDiv);
         
         playButton.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (currentTrack === index && isPlaying) {
+    e.stopPropagation();
+    if (currentTrack === index) {
+        // Si es el track actual, alternar entre play/pause
+        if (isPlaying) {
             sound.pause();
-          } else {
-            playTrack(index);
-          }
-        });
-        
-        item.addEventListener('click', () => playTrack(index));
-        playlistElement.appendChild(item);
-      });
+        } else {
+            // Si estaba pausado, reanudar desde donde estaba
+            sound.play();
+        }
+    } else {
+        // Si es un track diferente, reproducirlo desde el inicio
+        playTrack(index);
+    }
+    updatePlaylistUI();
+});
+
+// Y modificar el event listener del item completo para consistencia:
+item.addEventListener('click', () => {
+    if (currentTrack === index && isPlaying) {
+        sound.pause();
+    } else {
+        playTrack(index);
+    }
+    updatePlaylistUI();
+});
 
       document.getElementById('play-btn').addEventListener('click', togglePlay);
       document.getElementById('prev-btn').addEventListener('click', prevTrack);
