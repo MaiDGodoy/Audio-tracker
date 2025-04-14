@@ -149,7 +149,7 @@ body {
   
   .playlist-item {
     position: relative;
-    padding: 8px 8px 8px 36px;
+    padding: 8px 8px 8px 32px;
     margin: 6px 0;
     border-radius: 6px;
     cursor: pointer;
@@ -168,7 +168,7 @@ body {
 /* BOTÓN PLAY/PAUSA */
 .track-play-button {
     position: absolute;
-    left: 16px;
+    left: 18px;
     top: 50%;
     transform: translateY(-50%);
     background: transparent;
@@ -205,7 +205,7 @@ body {
 /* ONDAS DE AUDIO */
 .track-playing-indicator {
     position: absolute;
-    left: 16px;
+    left: 18px;
     top: 50%;
     transform: translateY(-50%);
     display: none;
@@ -301,8 +301,8 @@ body {
   .track-content {
     position: relative;
     padding-right: 40px;
-    padding-left: 26px; /* Añadido para mover texto a la derecha */
-    margin-left: 10px; /* Espacio adicional */
+    padding-left: 20px; /* Añadido para mover texto a la derecha */
+    margin-left: -2px; /* Espacio adicional */
   }
   
   .track-duration {
