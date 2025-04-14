@@ -4,8 +4,8 @@ const playlist = [
       title:"Video game music",
       artist:"stardew valley",
       duration: "02:00:00",
-      src:"https://dl.dropboxusercontent.com/scl/fi/kyxh7gdneigqa37p3g4kh/Relaxing-and-Nostalgic-Video-Game-Music-Calms-Your-Mind-for-Study-Work-Sleep-w_-Fire-Ambience-F67pfeDv-Q4-mp3cut.net-2.mp3?rlkey=lh86rpvgt06le8iy87h31vqz5&raw=1
-"},
+      src:"https://dl.dropboxusercontent.com/scl/fi/kyxh7gdneigqa37p3g4kh/Relaxing-and-Nostalgic-Video-Game-Music-Calms-Your-Mind-for-Study-Work-Sleep-w_-Fire-Ambience-F67pfeDv-Q4-mp3cut.net-2.mp3?rlkey=lh86rpvgt06le8iy87h31vqz5&raw=1"
+    },
     { 
       title: "Disc 1:Inazuma", 
       artist: "Genshin Impact", 
