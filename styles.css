@@ -238,6 +238,31 @@ body {
     opacity: 1; /* Hacerlo visible */
 }
 
+.playlist-item.active.paused .track-play-button::before {
+    content: "▶"; /* Asegura que muestra play */
+}
+
+/* 3. Comportamiento al HOVER */
+
+/* Hover sobre track REPRODUCIENDO */
+.playlist-item.active.playing:hover .track-playing-indicator {
+    display: none; /* Oculta ondas */
+}
+
+.playlist-item.active.playing:hover .track-play-button {
+    display: flex; /* Muestra botón */
+    opacity: 1; /* Lo hace visible */
+}
+
+.playlist-item.active.playing:hover .track-play-button::before {
+    content: "❚❚"; /* Muestra pausa */
+}
+
+/* Hover sobre track PAUSADO */
+.playlist-item.active.paused:hover .track-play-button::before {
+    content: "▶"; /* Mantiene play visible */
+}
+
 /* Estilos para las ondas... */
 .track-playing-indicator span {
     display: inline-block;
