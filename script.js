@@ -107,89 +107,87 @@ function preloadFirstTrack() {
 
 function initPlayer() {
   const playlistElement = document.getElementById('playlist');
-      updatePlayerTitle();
-      document.getElementById('current-time').textContent = '0:00';
-      document.getElementById('duration').textContent = '0:00';
+  updatePlayerTitle();
+  document.getElementById('current-time').textContent = '0:00';
+  document.getElementById('duration').textContent = '0:00';
 
-     const preloadSound = new Howl({
-      src: [playlist[0].src],
-      html5: true,
-      preload: true,
-      volume: 0, // Silencioso durante precarga
-      onload: function() {
-       console.log("Track precargado!");
-     }
-     }); // ← Este paréntesis faltaba
+  const preloadSound = new Howl({
+    src: [playlist[0].src],
+    html5: true,
+    preload: true,
+    volume: 0,
+    onload: function() {
+      console.log("Track precargado!");
+    }
+  });
 
-      playlist.forEach((track, index) => {
-        const item = document.createElement('div');
-        item.className = 'playlist-item';
-        
-        const playButton = document.createElement('button');
-        playButton.className = 'track-play-button';
-        playButton.innerHTML = '▶';
-        
-        const waveIndicator = document.createElement('div');
-        waveIndicator.className = 'track-playing-indicator';
-        waveIndicator.innerHTML = '<span></span><span></span><span></span>';
-        
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'track-content';
-        contentDiv.innerHTML = `
-          ${track.title}<br>
-          <small>${track.artist}</small>
-        `;  // <-- Aquí quitamos la duración que estaba antes
-        
-        // Añadir elemento de duración
-        const durationDiv = document.createElement('div');
-        durationDiv.className = 'track-duration';
-        durationDiv.textContent = track.duration;
-        contentDiv.appendChild(durationDiv);
-        
-        item.appendChild(playButton);
-        item.appendChild(waveIndicator);
-        item.appendChild(contentDiv);
-        
-        playButton.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (currentTrack === index) {
-        // Si es el track actual, alternar entre play/pause
+  playlist.forEach((track, index) => {
+    const item = document.createElement('div');
+    item.className = 'playlist-item';
+    
+    const playButton = document.createElement('button');
+    playButton.className = 'track-play-button';
+    playButton.innerHTML = '▶';
+    
+    const waveIndicator = document.createElement('div');
+    waveIndicator.className = 'track-playing-indicator';
+    waveIndicator.innerHTML = '<span></span><span></span><span></span>';
+    
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'track-content';
+    contentDiv.innerHTML = `
+      ${track.title}<br>
+      <small>${track.artist}</small>
+    `;
+    
+    const durationDiv = document.createElement('div');
+    durationDiv.className = 'track-duration';
+    durationDiv.textContent = track.duration;
+    contentDiv.appendChild(durationDiv);
+    
+    item.appendChild(playButton);
+    item.appendChild(waveIndicator);
+    item.appendChild(contentDiv);
+    
+    playButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (currentTrack === index) {
         if (isPlaying) {
-            sound.pause();
+          sound.pause();
         } else {
-            // Si estaba pausado, reanudar desde donde estaba
-            sound.play();
+          sound.play();
         }
-    } else {
-        // Si es un track diferente, reproducirlo desde el inicio
+      } else {
         playTrack(index);
-    }
-    updatePlaylistUI();
-});
-
-// Y modificar el event listener del item completo para consistencia:
-item.addEventListener('click', () => {
-    if (currentTrack === index && isPlaying) {
+      }
+      updatePlaylistUI();
+    });
+    
+    item.addEventListener('click', () => {
+      if (currentTrack === index && isPlaying) {
         sound.pause();
-    } else {
+      } else {
         playTrack(index);
-    }
-    updatePlaylistUI();
-});
+      }
+      updatePlaylistUI();
+    });
+    
+    playlistElement.appendChild(item);
+  });
 
-      document.getElementById('play-btn').addEventListener('click', togglePlay);
-      document.getElementById('prev-btn').addEventListener('click', prevTrack);
-      document.getElementById('next-btn').addEventListener('click', nextTrack);
-      document.getElementById('repeat-btn').addEventListener('click', toggleRepeat);
-      document.getElementById('shuffle-btn').addEventListener('click', toggleShuffle);
-      document.getElementById('progress-container').addEventListener('click', seek);
+  // Configuración de eventos de los controles principales
+  document.getElementById('play-btn').addEventListener('click', togglePlay);
+  document.getElementById('prev-btn').addEventListener('click', prevTrack);
+  document.getElementById('next-btn').addEventListener('click', nextTrack);
+  document.getElementById('repeat-btn').addEventListener('click', toggleRepeat);
+  document.getElementById('shuffle-btn').addEventListener('click', toggleShuffle);
+  document.getElementById('progress-container').addEventListener('click', seek);
 
-
-      const progressContainer = document.getElementById('progress-container');
+  // Configuración de arrastre de la barra de progreso
+  const progressContainer = document.getElementById('progress-container');
   const progressBar = document.getElementById('progress-bar');
   let isDragging = false;
 
-  // Función para manejar el arrastre
   const handleSeek = (e) => {
     if (!sound || !isDragging) return;
     
@@ -204,14 +202,12 @@ item.addEventListener('click', () => {
     document.getElementById('current-time').textContent = formatTime(newTime);
   };
 
-  // Evento para iniciar el arrastre
   const startDrag = (e) => {
     isDragging = true;
     progressContainer.classList.add('dragging');
-    handleSeek(e); // Actualiza inmediatamente al inicio del arrastre
+    handleSeek(e);
   };
 
-  // Evento para finalizar el arrastre
   const endDrag = () => {
     if (isDragging) {
       isDragging = false;
