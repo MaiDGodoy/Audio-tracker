@@ -149,7 +149,7 @@ body {
   
   .playlist-item {
     position: relative;
-    padding: 8px 8px 8px 30px;
+    padding: 8px 8px 8px 40px;
     margin: 6px 0;
     border-radius: 6px;
     cursor: pointer;
@@ -167,7 +167,7 @@ body {
 /* BOTÓN PLAY/PAUSA */
 .track-play-button {
     position: absolute;
-    left: 10px;
+    left: 12px;
     top: 50%;
     transform: translateY(-50%);
     background: transparent;
@@ -204,14 +204,15 @@ body {
 /* ONDAS DE AUDIO */
 .track-playing-indicator {
     position: absolute;
-    left: 10px;
+    left: 12px;
     top: 50%;
     transform: translateY(-50%);
     display: none;
-    width: 24px;
+    width: 20px;
     height: 16px;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
+    gap:2px;
 }
 
 /* --- COMPORTAMIENTO MODIFICADO --- */
@@ -239,11 +240,11 @@ body {
 /* Estilos para las ondas... */
 .track-playing-indicator span {
     display: inline-block;
-    width: 4px;
+    width: 3px;
     background-color: #ffefaf;
     border-radius: 2px;
     animation: equalize 1.2s infinite ease-in-out;
-    margin: 0 2px;
+    margin: 0 ;
 }
   .track-playing-indicator span:nth-child(1) { 
     height: 60%; 
@@ -299,6 +300,8 @@ body {
   .track-content {
     position: relative;
     padding-right: 40px;
+    padding-left: 30px; /* Añadido para mover texto a la derecha */
+    margin-left: 10px; /* Espacio adicional */
   }
   
   .track-duration {
