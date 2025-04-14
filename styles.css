@@ -149,7 +149,7 @@ body {
   
   .playlist-item {
     position: relative;
-    padding: 8px 8px 8px 40px;
+    padding: 8px 8px 8px 32px;
     margin: 6px 0;
     border-radius: 6px;
     cursor: pointer;
@@ -300,7 +300,7 @@ body {
   .track-content {
     position: relative;
     padding-right: 40px;
-    padding-left: 32px; /* Añadido para mover texto a la derecha */
+    padding-left: 22px; /* Añadido para mover texto a la derecha */
     margin-left: 10px; /* Espacio adicional */
   }
   
